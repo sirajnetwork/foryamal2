@@ -1,17 +1,31 @@
-name: Trigger another workflow
+name: Build and Deploy Docker Image
+
 on:
   push:
     branches:
       - main
 
 jobs:
-  trigger:
+  build:
     runs-on: ubuntu-22.04
+
     steps:
-      - name: Trigger second workflow
-        uses: peter-evans/workflow-dispatch@v1
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          workflow: second.yml  # Name of the other workflow
-          ref: refs/heads/main
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Build Docker image
+        run: |
+          docker build -t your-username/foryaml2:latest .
 
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push your-username/foryaml2:latest
