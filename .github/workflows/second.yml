@@ -1,42 +1,13 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+name: super-liner
+on: push
 jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-  deploy:
-    runs-on: ubuntu-22.04
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy application
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "Deploying application..."
-          # Add deployment commands here
+super-lint:
+name: lint code base
+runs-on: ubuntu -22.4
+steps:
+-name: checkout code
+user: action/checkout@v2
+uses: github/super-liner@v3
+env:
+DEFAULT_BRANCH: main
+GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
