@@ -9,7 +9,7 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
       - name: run super-liner
-        uses: github/super-liner@v3
+        uses: github/workflows/second.yml
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
