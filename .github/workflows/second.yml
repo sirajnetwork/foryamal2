@@ -1,16 +1,17 @@
-name: super-liner
-on: 
+name: Trigger another workflow
+on:
   push:
+    branches:
+      - main
+
 jobs:
-  super-lint:
-    name: lint code base
+  trigger:
     runs-on: ubuntu-22.04
     steps:
-      - name: checkout code
-        uses: actions/checkout@v2
-      - name: run super-liner
-        uses: github/workflows/second.yml
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Trigger second workflow
+        uses: peter-evans/workflow-dispatch@v1
+        with:
+          workflow: second.yml  # Name of the other workflow
+          ref: refs/heads/main
+
 
