@@ -3,7 +3,7 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on push to the main branch
 
 jobs:
   build:
@@ -19,8 +19,8 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}  # Refers to the secret for your Docker username
-          password: ${{ secrets.DOCKER_PASSWORD }}  # Refers to the secret for your Docker password
+          username: ${{ secrets.DOCKER_USERNAME }}  # Secret reference for Docker username
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Secret reference for Docker password
 
       - name: Build Docker image
         run: |
